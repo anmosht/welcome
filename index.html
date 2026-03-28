@@ -14,7 +14,7 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,12 +32,6 @@ body::before {
   background: rgba(0,0,0,0.65);
   top: 0;
   left: 0;
-}
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 /* Glass card */
 .container {
@@ -141,7 +135,7 @@ h1 {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 @media (max-width: 500px) {
@@ -361,7 +355,9 @@ function submitToGoogleForm() {
 
   // ✨ Apply glow to correct container
   var successContainer = document.querySelector("#successMessage .container");
+if (successContainer) {
   successContainer.classList.add("success-glow");
+}
 
   emailInput.value = "";
 }

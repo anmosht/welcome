@@ -200,13 +200,22 @@ body {
 function submitToGoogleForm() {
   var email = document.getElementById("emailInput").value;
 
+  // Email format regex
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Check empty
   if (!email) {
     alert("Please enter your email");
     return;
   }
 
-  var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSd3-XMaocZzUGPUwlTfA27Ehu1QirBxepJDULckXtmHo4B_Bw/formResponse";
+  // Check valid format
+  if (!emailPattern.test(email)) {
+    alert("Enter your valid email ID");
+    return;
+  }
 
+  var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSd3-XMaocZzUGPUwlTfA27Ehu1QirBxepJDULckXtmHo4B_Bw/formResponse";
   var entryID = "entry.490782532";
 
   var finalURL = formURL + "?" + entryID + "=" + encodeURIComponent(email);

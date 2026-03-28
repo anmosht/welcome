@@ -366,9 +366,15 @@ function submitToGoogleForm() {
   emailInput.value = "";
 }
 function resetForm() {
-  document.getElementById("mainContent").style.display = "block";
-  document.getElementById("successMessage").style.display = "none";
+  const main = document.getElementById("mainContent");
+  const success = document.getElementById("successMessage");
 
+  if (main && success) {
+    main.style.display = "block";
+    success.style.display = "none";
+  }
+
+  // Remove glow safely
   document.querySelectorAll(".container").forEach(c => {
     c.classList.remove("success-glow");
   });

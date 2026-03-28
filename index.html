@@ -186,9 +186,8 @@ body {
 
   <!-- EMAIL -->
   <div class="email-box">
-  <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSd3-XMaocZzUGPUwlTfA27Ehu1QirBxepJDULckXtmHo4B_Bw/viewform', '_blank')">
-    Subscribe for Newsletter
-  </button>
+  <input type="email" id="emailInput" placeholder="Enter your email" required>
+  <button onclick="submitToGoogleForm()">Subscribe for Newsletter</button>
 </div>
 
   <!-- FOOTER -->
@@ -197,6 +196,30 @@ body {
   </div>
 
 </div>
+<script>
+function submitToGoogleForm() {
+  var email = document.getElementById("emailInput").value;
+
+  if (!email) {
+    alert("Please enter your email");
+    return;
+  }
+
+  var formURL = "https://docs.google.com/forms/d/e/1FAIpQLSd3-XMaocZzUGPUwlTfA27Ehu1QirBxepJDULckXtmHo4B_Bw/formResponse";
+
+  var entryID = "entry.490782532";
+
+  var finalURL = formURL + "?" + entryID + "=" + encodeURIComponent(email);
+
+  fetch(finalURL, {
+    method: "POST",
+    mode: "no-cors"
+  });
+
+  alert("✅ Thank you! We'll send you our latest Newsletter.");
+  document.getElementById("emailInput").value = "";
+}
+</script>
 
 </body>
 </html>

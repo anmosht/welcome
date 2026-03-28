@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d') no-repeat center center/cover;
+      position: relative;
+    }
+
+    /* Dark overlay */
+    body::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 600px;
+      padding: 20px;
+      animation: fadeIn 1.5s ease;
+    }
+
+    /* LOGO STYLE 👇 */
+    .logo {
+      width: 700px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .email-box {
+      display: flex;
+      justify-content: center;
+    }
+
+    .email-box input {
+      padding: 12px;
+      border: none;
+      outline: none;
+      border-radius: 6px 0 0 6px;
+      width: 65%;
+    }
+
+    .email-box button {
+      padding: 12px 18px;
+      border: none;
+      background: #ff5722;
+      color: white;
+      cursor: pointer;
+      border-radius: 0 6px 6px 0;
+      transition: 0.3s;
+    }
+
+    .email-box button:hover {
+      background: #e64a19;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- YOUR LOGO HERE 👇 -->
+    <img src="https://lh3.googleusercontent.com/d/1W5O1MBHxLb_Am6Ci2zyEKy0xfB6FJDvy" class="logo">
+
+    <h1>Coming Soon 🚀</h1>
+    <p>We're launching something amazing that connects employers to job seekers.</p>
+
+    <div class="email-box">
+      <input type="email" placeholder="Enter your email">
+      <button>Notify Me</button>
+    </div>
+
+  </div>
+
+</body>
+</html>

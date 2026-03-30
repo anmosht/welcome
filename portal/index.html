@@ -31,11 +31,6 @@
         .ticker-item { padding: 0 30px; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        /* --- Navigation & Dropdown --- */
-        nav .nav-menu { display: flex; list-style: none; gap: 25px; align-items: center; }
-        nav .nav-menu a { color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; cursor: pointer; }
-        nav .nav-menu a:hover { color: var(--cap-blue); }
-
         /* This centers the entire site and gives it a clean background */
 body {
     background-color: #e9ecef;
@@ -238,21 +233,6 @@ main {
         height: auto;
         padding: 10px;
     }
-
-    nav {
-        width: 100%;
-    }
-
-    .nav-menu {
-        flex-direction: column;
-        display: none;
-        width: 100%;
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
-
     .login-actions {
         width: 100%;
         flex-direction: column;
@@ -279,6 +259,72 @@ main {
         width: 100%;
     }
 }
+/* Hamburger button */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+    }
+    .login-actions {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .login-btn {
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        height: auto;
+    }
+}
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    .nav-menu {
+        display: none !important;   /* 🔥 FORCE HIDE */
+        flex-direction: column;
+        width: 100%;
+        background: var(--cap-dark-blue);
+        margin-top: 10px;
+    }
+
+    .nav-menu.active {
+        display: flex !important;  /* 🔥 FORCE SHOW */
+    }
+
+    .nav-menu li {
+        text-align: center;
+        padding: 12px 0;
+    }
+}
+.nav-menu {
+    transition: all 0.3s ease;
+}
+        /* --- Navigation & Dropdown --- */
+        nav .nav-menu { display: flex; list-style: none; gap: 25px; align-items: center; }
+        nav .nav-menu a { color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; cursor: pointer; }
+        nav .nav-menu a:hover { color: var(--cap-blue); }
 </style>
 </head>
 <body>
@@ -291,7 +337,7 @@ main {
                 <span class="logo-text"></span>
             </a>
         </div>
-
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <nav>
             <ul class="nav-menu">
                 <li><a href="#" onclick="showServices(event)">Our Services</a></li>
@@ -650,6 +696,9 @@ function switchPricing(type, e) {
     document.getElementById('employers').style.display = (type === 'employers') ? 'block' : 'none';
     document.querySelectorAll(".pricing-tab").forEach(t => t.classList.remove("active"));
     e.target.classList.add("active");
+}
+function toggleMenu() {
+    document.querySelector(".nav-menu").classList.toggle("active");
 }
 </script>
 </div>

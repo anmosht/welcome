@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background-color: #0a0c10; color: #e0e0e0; font-family: 'Courier New', Courier, monospace; margin: 0; padding: 40px; }
+        .factsheet { max-width: 800px; margin: 0 auto; border: 1px solid #1f2937; padding: 40px; position: relative; }
+        .scanner-line { width: 100%; height: 2px; background: #00ff41; opacity: 0.3; position: absolute; top: 0; left: 0; }
+        header { border-bottom: 2px solid #00ff41; padding-bottom: 10px; margin-bottom: 30px; }
+        h1 { color: #00ff41; text-transform: uppercase; letter-spacing: 4px; margin: 0; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .stat-card { border: 1px solid #333; padding: 20px; background: rgba(255,255,255,0.02); }
+        .stat-label { font-size: 12px; color: #888; text-transform: uppercase; }
+        .stat-value { font-size: 24px; color: #fff; margin-top: 10px; }
+        .warning { color: #ff4141; font-weight: bold; margin-top: 20px; border: 1px dashed #ff4141; padding: 10px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="factsheet">
+        <div class="scanner-line"></div>
+        <header>
+            <h1>MOONSPY // INTEL REPORT</h1>
+            <p style="font-size: 12px;">CLASSIFIED: EYES ONLY • MARCH 2026</p>
+        </header>
+
+        <div class="grid">
+            <div class="stat-card">
+                <div class="stat-label">Network Coverage</div>
+                <div class="stat-value">99.98% Orbit</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Nodes</div>
+                <div class="stat-value">1,402 Satellites</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Data Throughput</div>
+                <div class="stat-value">4.2 PB/s</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Anomalies Detected</div>
+                <div class="stat-value">0.001%</div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 40px; color: #00ff41;">System Overview</h3>
+        <p>MoonSpy provides unparalleled visual and signal intelligence. Integrating directly with the SOZYN AI engine, MoonSpy validates physical office locations and high-security remote worker environments in real-time.</p>
+
+        <div class="warning">
+            [!] AUTO-UPDATE: ALL NODES SYNCHRONIZED. SECURITY CLEARANCE LEVEL 4 REQUIRED FOR FURTHER ACCESS.
+        </div>
+    </div>
+</body>
+</html>

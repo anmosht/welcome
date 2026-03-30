@@ -38,9 +38,8 @@
 
         /* This centers the entire site and gives it a clean background */
 body {
-    background-color: #e9ecef; /* A light grey 'outside' the box to show the edge */
-    display: flex;
-    justify-content: center;
+    background-color: #e9ecef;
+    overflow-x: hidden;
 }
 
 #page-wrapper {
@@ -232,6 +231,54 @@ main {
         gap: 40px;
     }
 } 
+@media (max-width: 768px) {
+
+    .header-container {
+        flex-wrap: wrap;
+        height: auto;
+        padding: 10px;
+    }
+
+    nav {
+        width: 100%;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        display: none;
+        width: 100%;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .login-actions {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .login-btn {
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .feature-row {
+        gap: 20px;
+        padding: 20px 10px;
+    }
+}
+@media (max-width: 768px) {
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+}
 </style>
 </head>
 <body>

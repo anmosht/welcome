@@ -261,7 +261,6 @@ main {
 }
 /* Hamburger button */
 .menu-toggle {
-    display: none;
     font-size: 1.8rem;
     background: none;
     border: none;
@@ -272,9 +271,6 @@ main {
 /* Mobile styles */
 @media (max-width: 768px) {
 
-    .menu-toggle {
-        display: block;
-    }
     .login-actions {
         flex-direction: column;
         width: 100%;
@@ -285,10 +281,62 @@ main {
         width: 100%;
     }
 }
+/* --- Modernized Mobile Header --- */
 @media (max-width: 768px) {
     .header-container {
-        flex-wrap: wrap;
-        height: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px; /* Slimmer header for mobile */
+        padding: 0 15px;
+    }
+
+    /* Keep Logo and Hamburger on one line */
+    .logo-area {
+        flex: 1;
+    }
+
+    .menu-toggle {
+        display: block;
+        order: 2; /* Moves hamburger to the right */
+        margin-left: 15px;
+    }
+
+    /* Fixed Navigation Menu (Covers content correctly) */
+    .nav-menu {
+        display: none !important; 
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--cap-dark-blue);
+        flex-direction: column;
+        padding: 20px 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        display: flex !important;
+    }
+
+    /* SLEEK LOGIN ACTIONS: No longer consumes the whole page */
+    .login-actions {
+        display: flex;
+        flex-direction: row; /* Keep them side-by-side */
+        gap: 5px;
+        width: auto;
+    }
+
+    .login-btn {
+        padding: 8px 12px;
+        font-size: 0.7rem; /* Smaller text for mobile */
+        border-radius: 4px;
+        white-space: nowrap;
+    }
+
+    .login-btn i {
+        margin-right: 4px;
     }
 }
 @media (max-width: 768px) {
@@ -325,19 +373,20 @@ main {
         nav .nav-menu { display: flex; list-style: none; gap: 25px; align-items: center; }
         nav .nav-menu a { color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.95rem; cursor: pointer; }
         nav .nav-menu a:hover { color: var(--cap-blue); }
+
 </style>
 </head>
 <body>
 <div id="page-wrapper">
 <header>
     <div class="header-container">
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <div class="logo-area">
             <a href="index.html" style="text-decoration: none; display: flex; align-items: center;">
                 <img src="images/sozyn-logo.svg" alt="SOZYN" onerror="this.style.display='none'">
                 <span class="logo-text"></span>
             </a>
         </div>
-<button class="menu-toggle" onclick="toggleMenu()">☰</button>
         <nav>
             <ul class="nav-menu">
                 <li><a href="#" onclick="showServices(event)">Our Services</a></li>
@@ -428,7 +477,7 @@ main {
                 </div>
             </div>
             <div class="feature-image">
-                <img src="images/moonspy.jpg" alt="Moonspy Analytics">
+                <img src="https://drive.google.com/uc?export=view&id=1wjdA2PjGm5Wfhsm8MvW4apv9uFQvSWcS" alt="Moonspy Analytics">
             </div>
         </div>
     </section>
@@ -700,6 +749,67 @@ function switchPricing(type, e) {
 function toggleMenu() {
     document.querySelector(".nav-menu").classList.toggle("active");
 }
+<script>
+    // Toggle the main hamburger menu
+    function toggleMenu() {
+        document.getElementById('mainMenu').classList.toggle('active');
+    }
+
+    // Toggle the "About" dropdown specifically
+    function toggleDropdown(e) {
+        e.stopPropagation();
+        document.getElementById('aboutDropdown').classList.toggle('active');
+    }
+
+    // Master Routing Function for all menu items
+    function routeTo(section) {
+        // 1. Hide all potential content containers
+        const containers = [
+            'main-content', 'services-content', 'overview-content', 
+            'founder-message-content', 'blog-content', 'pricing-content'
+        ];
+        
+        containers.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.style.display = 'none';
+        });
+
+        // 2. Show the requested section
+        const targetMap = {
+            'home': 'main-content',
+            'services': 'services-content',
+            'overview': 'overview-content',
+            'founder': 'founder-message-content',
+            'blog': 'blog-content',
+            'pricing': 'pricing-content'
+        };
+
+        const targetId = targetMap[section];
+        if(document.getElementById(targetId)) {
+            document.getElementById(targetId).style.display = 'block';
+        }
+
+        // 3. AUTO-CLOSE MENUS
+        document.getElementById('mainMenu').classList.remove('active');
+        document.getElementById('aboutDropdown').classList.remove('active');
+
+        // 4. Reset scroll position to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Back to Home functionality
+    function goHome() {
+        routeTo('home');
+    }
+
+    // Close menus if clicking outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.menu-toggle') && !event.target.closest('.dropdown')) {
+            document.getElementById('mainMenu').classList.remove('active');
+            document.getElementById('aboutDropdown').classList.remove('active');
+        }
+    }
+</script>
 </script>
 </div>
 </body>

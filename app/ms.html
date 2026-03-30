@@ -2,51 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>SOZYN | MoonSpy Technical Factsheet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { background-color: #0a0c10; color: #e0e0e0; font-family: 'Courier New', Courier, monospace; margin: 0; padding: 40px; }
-        .factsheet { max-width: 800px; margin: 0 auto; border: 1px solid #1f2937; padding: 40px; position: relative; }
-        .scanner-line { width: 100%; height: 2px; background: #00ff41; opacity: 0.3; position: absolute; top: 0; left: 0; }
-        header { border-bottom: 2px solid #00ff41; padding-bottom: 10px; margin-bottom: 30px; }
-        h1 { color: #00ff41; text-transform: uppercase; letter-spacing: 4px; margin: 0; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .stat-card { border: 1px solid #333; padding: 20px; background: rgba(255,255,255,0.02); }
-        .stat-label { font-size: 12px; color: #888; text-transform: uppercase; }
-        .stat-value { font-size: 24px; color: #fff; margin-top: 10px; }
-        .warning { color: #ff4141; font-weight: bold; margin-top: 20px; border: 1px dashed #ff4141; padding: 10px; text-align: center; }
+        :root { --neon: #00ff41; --dark: #0a0c10; }
+        * { box-sizing: border-box; font-family: 'Courier New', monospace; margin: 0; padding: 0; }
+        body { background: #1a1a1a; padding: 40px; display: flex; flex-direction: column; align-items: center; color: #ccc; }
+        
+        .download-btn { background: transparent; color: var(--neon); border: 1px solid var(--neon); padding: 12px 25px; cursor: pointer; margin-bottom: 20px; }
+        .download-btn:hover { background: var(--neon); color: black; }
+
+        .brochure { width: 800px; background: var(--dark); border: 1px solid #333; padding: 50px; position: relative; }
+        .brochure::after { content: "CLASSIFIED"; position: absolute; top: 20px; right: 20px; font-size: 10px; color: #444; border: 1px solid #444; padding: 2px 5px; }
+
+        h1 { color: var(--neon); letter-spacing: 5px; margin-bottom: 10px; }
+        .scan-line { width: 100%; height: 1px; background: var(--neon); opacity: 0.3; margin: 20px 0; }
+        
+        .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .intel-block { border: 1px solid #222; padding: 15px; background: rgba(0,255,65,0.02); }
+        .intel-block h4 { color: var(--neon); font-size: 14px; margin-bottom: 5px; }
+        
+        .warning-footer { border: 1px dashed #ff4141; color: #ff4141; padding: 15px; margin-top: 40px; font-size: 12px; text-align: center; }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .download-btn { display: none; }
+            .brochure { border: none; width: 100%; color: black; background: white; }
+            h1, .intel-block h4 { color: #000; font-weight: bold; }
+            .scan-line { background: #000; }
+        }
     </style>
 </head>
 <body>
-    <div class="factsheet">
-        <div class="scanner-line"></div>
-        <header>
-            <h1>MOONSPY // INTEL REPORT</h1>
-            <p style="font-size: 12px;">CLASSIFIED: EYES ONLY • MARCH 2026</p>
-        </header>
+    <button class="download-btn" onclick="window.print()">[ EXECUTE PDF EXPORT ]</button>
 
-        <div class="grid">
-            <div class="stat-card">
-                <div class="stat-label">Network Coverage</div>
-                <div class="stat-value">99.98% Orbit</div>
+    <div class="brochure">
+        <p style="font-size: 12px; color: #666;">INTEL REPORT // VER 4.0</p>
+        <h1>MOONSPY</h1>
+        <div class="scan-line"></div>
+        
+        <p>Advanced geo-spatial verification and physical environment auditing. MoonSpy ensures the human is where they claim to be, in an environment that meets your security standards.</p>
+
+        <div class="intel-grid">
+            <div class="intel-block">
+                <h4>GEO-LOCATE</h4>
+                <p>Precise coordinate validation via multi-node signal triangulation.</p>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Active Nodes</div>
-                <div class="stat-value">1,402 Satellites</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Data Throughput</div>
-                <div class="stat-value">4.2 PB/s</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Anomalies Detected</div>
-                <div class="stat-value">0.001%</div>
+            <div class="intel-block">
+                <h4>ENV-AUDIT</h4>
+                <p>Security scan of remote workspaces for compliance protocols.</p>
             </div>
         </div>
 
-        <h3 style="margin-top: 40px; color: #00ff41;">System Overview</h3>
-        <p>MoonSpy provides unparalleled visual and signal intelligence. Integrating directly with the SOZYN AI engine, MoonSpy validates physical office locations and high-security remote worker environments in real-time.</p>
+        <div class="scan-line"></div>
+        <h3>Technical Specs</h3>
+        <ul style="margin: 20px; font-size: 13px; line-height: 2;">
+            <li>Zero-latency signal verification.</li>
+            <li>Hardware-level integrity fingerprinting.</li>
+            <li>Encrypted audit trail with blockchain timestamping.</li>
+        </ul>
 
-        <div class="warning">
-            [!] AUTO-UPDATE: ALL NODES SYNCHRONIZED. SECURITY CLEARANCE LEVEL 4 REQUIRED FOR FURTHER ACCESS.
+        <div class="warning-footer">
+            CONFIDENTIAL: For Enterprise Security Officers Only. Unauthorized duplication is prohibited.
         </div>
     </div>
 </body>

@@ -56,19 +56,12 @@
     main {
         flex: 1;
     }
-            .dropdown { position: relative; }
-            .dropdown-menu { 
-                display: none; 
-                position: absolute; 
-                top: 100%; 
-                left: 0; 
-                background: #fff; 
-                min-width: 180px; 
-                box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
-                list-style: none;
-                padding: 10px 0;
-                border-top: 3px solid var(--cap-blue);
-            }
+
+
+/* OPEN STATE */
+.dropdown.open .dropdown-menu {
+    max-height: 300px;
+}
             .dropdown-menu li a { color: var(--cap-dark-blue) !important; padding: 10px 20px; display: block; }
             .dropdown-menu li a:hover { background: var(--bg-light); color: var(--cap-blue) !important; }
             .arrow { font-size: 0.7rem; margin-left: 5px; }
@@ -217,6 +210,30 @@
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 
                     0 0 20px rgba(0, 255, 255, 0.2); /* Neon glow */
     }
+/* DESKTOP DROPDOWN */
+@media (min-width: 993px) {
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+
+        /* 🔥 THIS FIXES YOUR ISSUE */
+        max-height: none;
+        overflow: visible;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
     
     /* Responsive for Mobile */
     @media (max-width: 992px) {
@@ -266,6 +283,9 @@
         border: none;
         color: #fff;
         cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 30px;
     }
     
     /* Mobile styles */
@@ -290,13 +310,13 @@
     
         /* Keep Logo and Hamburger on one line */
         .logo-area {
-            flex: none;
+            flex: 1;
         }
     
         .menu-toggle {
             display: block;
             order: 2; /* Moves hamburger to the right */
-            
+            margin-left: 15px;
         }
     
         /* Fixed Navigation Menu (Covers content correctly) */
@@ -343,7 +363,6 @@
     
         .menu-toggle {
             display: block;
-            margin-left: 10px;
         }
     
         nav {
@@ -434,10 +453,6 @@
         color: #fff;
         font-size: 1.5rem;
         cursor: pointer;
-        position: absolute;
-        right: 20px;
-        top: 30px;
-        
     }
 
     .desktop-only { display: none; }
@@ -475,15 +490,32 @@
         padding: 10px 15px;
         width: 100%;
     }
+}
 
     /* Fix dropdowns on mobile */
+@media (max-width: 992px) {
     .dropdown-menu {
-        position: static;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
         background: #00213a;
-        width: 100%;
-        box-shadow: none;
-        padding-left: 20px;
     }
+
+    .dropdown.open .dropdown-menu {
+        max-height: 300px;
+    }
+}
+@media (max-width: 992px) {
+    .dropdown-menu {
+        background: #00213a;
+        padding-left: 15px;
+    }
+}
+
+
+/* When open */
+.dropdown.open .dropdown-menu {
+    max-height: 300px;
 }
 @media (max-width: 768px) {
     /* Pulls the logo area higher */
@@ -504,6 +536,16 @@
         align-items: center; /* Ensures hamburger and logo stay aligned */
     }
 
+
+@media (max-width: 992px) {
+    .dropdown-menu li a {
+        color: #fff !important;
+    }
+
+    .dropdown-menu li a:hover {
+        color: var(--cap-blue) !important;
+    }
+}
     </style>
     </head>
     <body>
@@ -524,14 +566,17 @@
         <nav>
             <ul class="nav-menu" id="nav-list">
                 <li><a href="#" onclick="showServices(event)">Our Services</a></li>
-                <li class="dropdown">
-                    <a href="#" onclick="toggleDropdown(event)">About <span class="arrow">▾</span></a>
-                    <ul class="dropdown-menu" id="aboutDropdown">
-                        <li><a href="#" onclick="showOverview(event)">Overview</a></li>
-                        <li><a href="#" onclick="showFounderMessage(event)">Message</a></li>
-                        <li><a href="#" onclick="showBlog(event)">Blog</a></li>
-                    </ul>
-                </li>
+               <li class="dropdown">
+    <a href="#" onclick="toggleAboutMenu(event)">
+        About <span class="arrow">▾</span>
+    </a>
+
+    <ul class="dropdown-menu" id="aboutDropdown">
+        <li><a href="#" onclick="handleNavClick(event, showOverview)">Overview</a></li>
+        <li><a href="#" onclick="handleNavClick(event, showFounderMessage)">Message</a></li>
+        <li><a href="#" onclick="handleNavClick(event, showBlog)">Blog</a></li>
+    </ul>
+</li>
                 <li><a href="#" onclick="showPricing(event)">Pricing</a></li>
                 <li><a href="kb.html" target="_blank">User Assistance</a></li>
                 <li class="mobile-only-actions">
@@ -869,19 +914,7 @@
     function showOverview(e) { e.preventDefault(); hideAll(); document.getElementById("overview-content").style.display = "block"; }
     function showFounderMessage(e) { e.preventDefault(); hideAll(); document.getElementById("founder-message-content").style.display = "block"; }
     function showBlog(e) { e.preventDefault(); hideAll(); document.getElementById("blog-content").style.display = "block"; }
-    
-    function toggleDropdown(e) {
-        e.preventDefault();
-        const menu = document.getElementById("aboutDropdown");
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-    
-    // Close dropdown if clicked outside
-    window.onclick = function(event) {
-        if (!event.target.matches('.dropdown a')) {
-            document.getElementById("aboutDropdown").style.display = "none";
-        }
-    }
+       
     
     function showPolicy(e, policyId) {
         e.preventDefault(); hideAll();
@@ -914,28 +947,51 @@
     navList.classList.remove('active')
 
 document.querySelectorAll('.nav-menu a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+
+
+        if (link.closest('.dropdown')) return;
+
         const navList = document.getElementById('nav-list');
         const menuBtn = document.getElementById('mobile-menu-btn');
         const icon = menuBtn.querySelector('i');
 
-        // Only trigger on mobile (when menu is active)
         if (navList.classList.contains('active')) {
             navList.classList.remove('active');
-            
-            // Reset icon back to bars
             icon.classList.remove('fa-times');
             icon.classList.add('fa-bars');
         }
     });
 });
 
-function toggleDropdown(event) {
-    event.stopPropagation(); // Prevents clicking the dropdown from closing the whole menu immediately
-    const dropdown = document.getElementById('aboutDropdown');
-    dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+function handleNavClick(event, callback) {
+    event.preventDefault();
+
+    // Run page function
+    callback(event);
+
+    const navList = document.getElementById('nav-list');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const icon = menuBtn.querySelector('i');
+
+    // Close mobile menu
+    navList.classList.remove('active');
+    icon.classList.remove('fa-times');
+    icon.classList.add('fa-bars');
+
+    // Close dropdown
+    document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
 }
-    </script>
+    
+function toggleAboutMenu(event) {
+    if (window.innerWidth > 992) return; // 👈 ignore on desktop
+
+    event.preventDefault();
+
+    const dropdown = event.target.closest('.dropdown');
+    dropdown.classList.toggle('open');
+}
+</script>
     </div>
 <div id="newsletter-modal" class="modal-overlay">
     <div class="modal-content">

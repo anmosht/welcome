@@ -2,69 +2,190 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SOZYN | MoonSpy Technical Factsheet</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonspy Feature Reveal: Dual Employment Intelligence</title>
     <style>
-        :root { --neon: #00ff41; --dark: #0a0c10; }
-        * { box-sizing: border-box; font-family: 'Courier New', monospace; margin: 0; padding: 0; }
-        body { background: #1a1a1a; padding: 40px; display: flex; flex-direction: column; align-items: center; color: #ccc; }
-        
-        .download-btn { background: transparent; color: var(--neon); border: 1px solid var(--neon); padding: 12px 25px; cursor: pointer; margin-bottom: 20px; }
-        .download-btn:hover { background: var(--neon); color: black; }
+        :root {
+            --primary-bg: #0f172a;
+            --accent-blue: #38bdf8;
+            --accent-purple: #818cf8;
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+        }
 
-        .brochure { width: 800px; background: var(--dark); border: 1px solid #333; padding: 50px; position: relative; }
-        .brochure::after { content: "CLASSIFIED"; position: absolute; top: 20px; right: 20px; font-size: 10px; color: #444; border: 1px solid #444; padding: 2px 5px; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
 
-        h1 { color: var(--neon); letter-spacing: 5px; margin-bottom: 10px; }
-        .scan-line { width: 100%; height: 1px; background: var(--neon); opacity: 0.3; margin: 20px 0; }
-        
-        .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
-        .intel-block { border: 1px solid #222; padding: 15px; background: rgba(0,255,65,0.02); }
-        .intel-block h4 { color: var(--neon); font-size: 14px; margin-bottom: 5px; }
-        
-        .warning-footer { border: 1px dashed #ff4141; color: #ff4141; padding: 15px; margin-top: 40px; font-size: 12px; text-align: center; }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 1) 100%);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
 
-        @media print {
-            body { background: white; padding: 0; }
-            .download-btn { display: none; }
-            .brochure { border: none; width: 100%; color: black; background: white; }
-            h1, .intel-block h4 { color: #000; font-weight: bold; }
-            .scan-line { background: #000; }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            height: 40px; /* Adjust based on your logo aspect ratio */
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.4));
+        }
+
+        .feature-tag {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+        }
+
+        .card h3 {
+            color: var(--accent-blue);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .risk-alert {
+            grid-column: span 2;
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .risk-alert h4 {
+            color: #fb7185;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+            color: var(--text-dim);
+        }
+
+        li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .risk-alert { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
-    <button class="download-btn" onclick="window.print()">[ EXECUTE PDF EXPORT ]</button>
 
-    <div class="brochure">
-        <p style="font-size: 12px; color: #666;">INTEL REPORT // VER 4.0</p>
-        <h1>MOONSPY</h1>
-        <div class="scan-line"></div>
-        
-        <p>Advanced geo-spatial verification and physical environment auditing. MoonSpy ensures the human is where they claim to be, in an environment that meets your security standards.</p>
+<div class="container">
+    <header>
+        <img src="images/sozyn-logo.svg" alt="Sozyn Logo" class="logo">
+        <span class="feature-tag">Upcoming Feature</span>
+    </header>
 
-        <div class="intel-grid">
-            <div class="intel-block">
-                <h4>GEO-LOCATE</h4>
-                <p>Precise coordinate validation via multi-node signal triangulation.</p>
-            </div>
-            <div class="intel-block">
-                <h4>ENV-AUDIT</h4>
-                <p>Security scan of remote workspaces for compliance protocols.</p>
-            </div>
+    <h1>Moonspy: Dual Employment Intelligence</h1>
+    <p class="subtitle">Moving beyond traditional background checks to real-time integrity monitoring.</p>
+
+    <div class="grid">
+        <div class="card">
+            <h3><span>🕒</span> Retrospective Analysis</h3>
+            <p>Identify a candidate's history of multi-tasking and parallel employment before they join your team.</p>
+            <ul>
+                <li><strong>PF Contribution Gaps:</strong> Automated detection of overlapping Provident Fund contributions, even if secondary employers were not disclosed.</li>
+                <li><strong>The "Non-PF" Trail:</strong> Tracking professional footprints in sectors where PF isn't mandatory through proprietary work-history data.</li>
+                <li><strong>Tenure Overlaps:</strong> Instant flagging of simultaneous full-time roles in previous years.</li>
+            </ul>
         </div>
 
-        <div class="scan-line"></div>
-        <h3>Technical Specs</h3>
-        <ul style="margin: 20px; font-size: 13px; line-height: 2;">
-            <li>Zero-latency signal verification.</li>
-            <li>Hardware-level integrity fingerprinting.</li>
-            <li>Encrypted audit trail with blockchain timestamping.</li>
-        </ul>
+        <div class="card">
+            <h3><span>📡</span> Live Pulse Monitoring</h3>
+            <p>Ensure your current workforce remains dedicated to your goals and secure with your data.</p>
+            <ul>
+                <li><strong>Gig-Economy Tracking:</strong> Detect active profiles and submissions on major freelancing and part-time platforms.</li>
+                <li><strong>Digital Work Footprints:</strong> Monitoring professional activity signals that suggest an employee is active during "billable" hours elsewhere.</li>
+                <li><strong>Behavioral Shift Alerts:</strong> Identify sudden changes in output patterns often associated with moonlighting stress.</li>
+            </ul>
+        </div>
 
-        <div class="warning-footer">
-            CONFIDENTIAL: For Enterprise Security Officers Only. Unauthorized duplication is prohibited.
+        <div class="risk-alert">
+            <h4><span>⚠️</span> Why It Matters: The Integrity Shield</h4>
+            <p style="margin-bottom: 0;">Moonlighting isn't just about lost productivity—it's a massive compliance and security loophole. Moonspy helps you prevent:</p>
+            <div style="display: flex; gap: 40px; margin-top: 15px; color: var(--text-dim); font-size: 0.9rem;">
+                <span>🚫 <strong>Data Theft:</strong> Use of company IP for external gain.</span>
+                <span>🚫 <strong>Policy Breach:</strong> Direct violation of non-compete clauses.</span>
+                <span>🚫 <strong>Burnout Risk:</strong> Protecting your production quality.</span>
+            </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 Sozyn. All Rights Reserved. Moonspy is a trademark of Sozyn Intelligence.</p>
+    </footer>
+</div>
+
 </body>
 </html>

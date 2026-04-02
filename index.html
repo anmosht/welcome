@@ -186,19 +186,54 @@ body::before {
 
 <div id="successMessage" style="display: none;">
   <div class="container success-border-container">
-    
-<svg class="border-svg" preserveAspectRatio="none">
-  <rect class="border-path" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="20" />
-</svg>
+
+    <svg class="border-svg" preserveAspectRatio="none">
+      <rect class="border-path" x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" rx="20" />
+    </svg>
 
     <img src="https://lh3.googleusercontent.com/d/1W5O1MBHxLb_Am6Ci2zyEKy0xfB6FJDvy" class="logo">
+
     <h2 style="margin-bottom: 15px;">✅ Thank You!</h2>  
-    <p>Check your mailbox for our newsletter.</p>
-    <p>We will notify you once we are live.<br><strong>Stay tuned...</strong></p>
+
+    <p>Your newsletter is ready.</p>
+    
+    <!-- Timer text -->
+    <p id="timerText">Download available in 5 seconds...</p>
+
+    <!-- Hidden Download Button -->
+    <a id="downloadBtn" 
+       href="www.sozyn.co.in/newsletter" 
+       download 
+       class="button-ok" 
+       style="display: none; text-decoration:none;">
+       📥 Newsletter
+    </a>
+
+    <br><br>
+
     <button onclick="location.reload()" class="button-ok">OK</button>
+
     <div class="footer">© Sozyn LLP 2026. All rights reserved.</div>
   </div>
 </div>
+
+<script>
+  // Countdown Timer
+  let timeLeft = 5;
+  const timerText = document.getElementById("timerText");
+  const downloadBtn = document.getElementById("downloadBtn");
+
+  const countdown = setInterval(() => {
+    timeLeft--;
+    timerText.innerText = "Download available in " + timeLeft + " seconds...";
+
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+      timerText.style.display = "none";
+      downloadBtn.style.display = "inline-block";
+    }
+  }, 1000);
+</script>
 
 <script>
 function submitToGoogleForm() {

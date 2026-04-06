@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOZYN Assist+ | Knowledge Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary: #0070ad;
+            --dark: #003057;
+            --bg: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.8);
+            --neon-glow: 0 0 15px rgba(0, 112, 173, 0.3);
+            --danger: #e74c3c;
+            --success: #2ecc71;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Ubuntu', sans-serif; }
+        body { background: var(--bg); color: #333; display: flex; min-height: 100vh; }
+
+        /* --- Sidebar Navigation --- */
+        .sidebar {
+            width: 280px;
+            background: var(--dark);
+            color: white;
+            padding: 30px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header { padding: 0 25px 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-header h2 { font-size: 1.5rem; letter-spacing: 1px; color: #fff; }
+        .sidebar-header span { color: var(--primary); }
+
+        .nav-menu { list-style: none; margin-top: 20px; }
+        .nav-menu li { padding: 12px 25px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; opacity: 0.8; }
+        .nav-menu li:hover, .nav-menu li.active { background: rgba(255,255,255,0.05); opacity: 1; border-left: 4px solid var(--primary); }
+        .nav-menu i { width: 20px; text-align: center; }
+        
+        .submenu { display: none; list-style: none; background: rgba(0,0,0,0.2); }
+        .submenu li { padding: 10px 25px 10px 55px; font-size: 0.85rem; border-left: none !important; }
+        .submenu li:hover { background: rgba(255,255,255,0.1); }
+
+        /* --- Main Content Area --- */
+        .main-container { margin-left: 280px; width: calc(100% - 280px); padding: 40px; max-width: 1200px; }
+
+        .search-wrapper { 
+            background: #fff; padding: 15px 25px; border-radius: 12px; 
+            display: flex; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.05); 
+            margin-bottom: 40px; border: 1px solid #eee;
+        }
+        .search-wrapper input { border: none; outline: none; width: 100%; font-size: 1rem; margin-left: 15px; }
+
+        .content-section { display: none; animation: fadeIn 0.4s ease; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-size: 2.2rem; color: var(--dark); margin-bottom: 10px; }
+        h3 { margin: 25px 0 15px; color: var(--dark); }
+        p { line-height: 1.7; margin-bottom: 15px; color: #555; }
+
+        .meta-info { font-size: 0.85rem; color: #888; margin-bottom: 30px; display: flex; gap: 20px; }
+        .note-box { background: #eef7ff; border-left: 5px solid var(--primary); padding: 20px; margin: 25px 0; border-radius: 4px; }
+        .tip-box { background: #f0fff4; border-left: 5px solid var(--success); padding: 20px; margin: 25px 0; border-radius: 4px; }
+        .code-block { background: #2d3436; color: #fab1a0; padding: 20px; border-radius: 8px; font-family: monospace; margin: 20px 0; overflow-x: auto; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; }
+        table th { background: var(--dark); color: white; padding: 12px; text-align: left; }
+        table td { padding: 12px; border-bottom: 1px solid #eee; }
+
+        .image-card { width: 100%; height: 350px; border-radius: 15px; overflow: hidden; margin: 25px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .image-card img { width: 100%; height: 100%; object-fit: cover; }
+        .chart-container { background: white; padding: 25px; border-radius: 15px; border: 1px solid #eee; margin: 30px 0; max-width: 700px; }
+
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); transition: 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .main-container { margin-left: 0; width: 100%; padding: 20px; }
+            .mobile-toggle { display: block; position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 15px; border-radius: 50%; z-index: 2100; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>SOZYN <span>Assist+</span></h2>
+        </div>
+        <ul class="nav-menu">
+            <li class="active" onclick="showTopic('getting-started')"><i class="fas fa-rocket"></i> Getting Started</li>
+
+            <li onclick="toggleSubmenu(this)"><i class="fas fa-building"></i> Employer Suite <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: auto;"></i></li>
+            <ul class="submenu">
+                <li onclick="showTopic('employer-overview')">Overview</li>
+                <li onclick="showTopic('hiring-flow')">Hiring Workflow</li>
+                <li onclick="showTopic('reports')">Reports & Analytics</li>
+            </ul>
+
+            <li onclick="toggleSubmenu(this)"><i class="fas fa-shield-halved"></i> Verification System <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: auto;"></i></li>
+            <ul class="submenu">
+                <li onclick="showTopic('verification-flow')">Lifecycle</li>
+                <li onclick="showTopic('fraud-detection')">Fraud Detection</li>
+            </ul>
+
+            <li onclick="toggleSubmenu(this)"><i class="fas fa-code"></i> Developer Hub <i class="fas fa-chevron-down" style="font-size: 0.7rem; margin-left: auto;"></i></li>
+            <ul class="submenu">
+                <li onclick="showTopic('api-docs')">API Docs</li>
+                <li onclick="showTopic('webhooks')">Webhooks</li>
+            </ul>
+
+            <li onclick="showTopic('billing')"><i class="fas fa-credit-card"></i> Billing</li>
+            <li onclick="showTopic('security')"><i class="fas fa-lock"></i> Security</li>
+            <li onclick="showTopic('ai-engine')"><i class="fas fa-brain"></i> AI Engine</li>
+            <li onclick="showTopic('faq')"><i class="fas fa-circle-question"></i> FAQ</li>
+        </ul>
+    </aside>
+
+    <main class="main-container">
+        <div class="search-wrapper">
+            <i class="fas fa-search"></i>
+            <input type="text" id="kbSearch" placeholder="Search documentation..." onkeyup="filterSearch()">
+        </div>
+
+        <div id="getting-started" class="content-section active">
+            <h1>Welcome to SOZYN Assist+</h1>
+            <div class="meta-info"><span><i class="far fa-calendar-alt"></i> March 30, 2026</span><span><i class="far fa-clock"></i> 5 min read</span></div>
+            <p>The central intelligence hub for the SOZYN ecosystem. We provide high-fidelity background verification and performance data for the modern workforce.</p>
+            <div class="image-card"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200" alt="Dashboard"></div>
+            <div class="note-box"><strong>SYSTEM NOTE:</strong> Standard SLA is 72 hours. Use "Priority" flags for 24-hour turnaround.</div>
+            <h3>Core Pillars</h3>
+            <ul style="margin-left: 20px; line-height: 2;">
+                <li><strong>Identity:</strong> Biometric and document-level validation.</li>
+                <li><strong>Tenure:</strong> Payroll-integrated employment history.</li>
+                <li><strong>SOZYN Score:</strong> Our proprietary candidate reliability index.</li>
+            </ul>
+        </div>
+
+        <div id="employer-overview" class="content-section">
+            <h1>Employer Suite</h1>
+            <p>A centralized dashboard for HR teams to manage candidate pipelines and verification status in real-time.</p>
+            <div class="tip-box"><strong>PRO TIP:</strong> Use the "Bulk Invite" feature to send verification requests to up to 500 candidates simultaneously.</div>
+            <table>
+                <tr><th>Feature</th><th>Benefit</th></tr>
+                <tr><td>Auto-Reminder</td><td>Reduces candidate drop-off by 30%</td></tr>
+                <tr><td>Team Roles</td><td>Control who can see sensitive salary data</td></tr>
+                <tr><td>ATS Sync</td><td>Connect with Workday, Greenhouse, or Lever</td></tr>
+            </table>
+        </div>
+
+        <div id="verification-flow" class="content-section">
+            <h1>Verification Lifecycle</h1>
+            <p>Data visualization of the standard verification path from trigger to final report.</p>
+            <div class="chart-container"><canvas id="flowChart"></canvas></div>
+            <h3>Security Gates</h3>
+            <p>Every check passes through our AI filter before manual human oversight is applied, ensuring 99.9% accuracy.</p>
+        </div>
+
+        <div id="fraud-detection" class="content-section">
+            <h1>Fraud Detection Engine</h1>
+            <p>SOZYN uses advanced heuristics to catch document manipulation and "ghost" employment.</p>
+            <div class="note-box" style="background: #fff5f5; border-left-color: var(--danger);">
+                <strong>THREAT ACTOR ALERT:</strong> We have detected a rise in AI-generated payslips. Our "Deep-Scan" utility now checks pixel-consistency in all uploaded PDFs.
+            </div>
+            <h3>Detection Methods</h3>
+            <ul>
+                <li><strong>Metadata Scrubbing:</strong> We find original save dates on documents.</li>
+                <li><strong>Cross-Reference:</strong> Matches tax IDs against registered business databases.</li>
+            </ul>
+        </div>
+
+        <div id="api-docs" class="content-section">
+            <h1>API Integration</h1>
+            <p>Build custom workflows by connecting to our REST API.</p>
+            <div class="code-block">
+                POST /v1/verifications<br>
+                {<br>
+                &nbsp;&nbsp;"email": "candidate@example.com",<br>
+                &nbsp;&nbsp;"type": "comprehensive_check"<br>
+                }
+            </div>
+            <p>Authentication requires a <code>Bearer Token</code> generated in your Security settings.</p>
+        </div>
+
+        <div id="ai-engine" class="content-section">
+            <h1>The SOZYN Brain</h1>
+            <p>Our proprietary LLM analyzes reference text to determine sentiment and performance trends that numbers can't show.</p>
+            <div class="tip-box">The AI Engine currently supports 14 languages for international verification.</div>
+        </div>
+
+        <div id="generic-page" class="content-section">
+            <h1>Documentation Content</h1>
+            <p>This section is currently being updated to reflect the latest SOZYN Assist+ features. Check back soon for detailed guides and documentation.</p>
+        </div>
+
+    </main>
+
+    <script>
+        // Updated Topic Switcher to handle submenus and active states
+        function showTopic(id) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            
+            // Show target or fallback
+            const target = document.getElementById(id);
+            if (target) {
+                target.classList.add('active');
+            } else {
+                document.getElementById('generic-page').classList.add('active');
+                document.querySelector('#generic-page h1').innerText = id.replace(/-/g, ' ').toUpperCase();
+            }
+
+            // Remove active class from all menu items
+            document.querySelectorAll('.nav-menu li').forEach(l => l.classList.remove('active'));
+            
+            // Highlight current selection
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            window.scrollTo(0, 0);
+            if (window.innerWidth <= 768) toggleSidebar();
+        }
+
+        function toggleSubmenu(el) {
+            let next = el.nextElementSibling;
+            let icon = el.querySelector('.fa-chevron-down');
+            if (next && next.classList.contains('submenu')) {
+                const isOpen = next.style.display === 'block';
+                next.style.display = isOpen ? 'none' : 'block';
+                icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function filterSearch() {
+            let input = document.getElementById('kbSearch').value.toLowerCase();
+            if (input.length > 2) {
+                console.log("Searching for keywords: " + input);
+                // Simple feedback:
+                document.querySelector('.search-wrapper i').style.color = 'var(--primary)';
+            } else {
+                document.querySelector('.search-wrapper i').style.color = '#999';
+            }
+        }
+
+        // Initialize Chart
+        const ctx = document.getElementById('flowChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Input', 'Verification', 'AI Analysis', 'Human Audit', 'Report'],
+                datasets: [{
+                    label: 'Efficiency Rate (%)',
+                    data: [100, 96, 92, 94, 99],
+                    borderColor: '#0070ad',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(0, 112, 173, 0.1)'
+                }]
+            },
+            options: { 
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+</body>
+</html>

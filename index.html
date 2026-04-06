@@ -3,11 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Sozyn | Expert Verification - Coming Soon</title>
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <title>SOZYN | Get The Future You Want</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
         
@@ -582,7 +578,7 @@
     </ul>
 </li>
                 <li><a href="#" onclick="showPricing(event)">Pricing</a></li>
-                <li><a href="KnowledgeBase.html" target="_blank">User Assistance</a></li>
+                <li><a href="kb.html" target="_blank">User Assistance</a></li>
                 <li class="mobile-only-actions">
                     <div class="login-actions">
                         <button class="login-btn employer-btn" onclick="window.open('http://localhost/sozyn/Registration/employer-login.php', '_blank')">
@@ -635,7 +631,7 @@
                     </p>
                     <div class="hero-buttons">
                         <button class="btn-primary" onclick="window.open('http://localhost/sozyn/Registration/emp-register.php', '_blank')">Register your Organization</button>
-                        <button class="btn-secondary" onclick="window.open('EmployerSuite.html', '_blank')">Learn More</button>
+                        <button class="btn-secondary" onclick="window.open('es.html', '_blank')">Learn More</button>
                     </div>
                 </div>
                 <div class="feature-image">
@@ -654,7 +650,7 @@
                     </p>
                     <div class="hero-buttons">
                         <button class="btn-primary" onclick="window.open('http://localhost/sozyn/Registration/can-register.php', '_blank')">Create Employee Profile</button>
-                        <button class="btn-secondary" onclick="window.open('JobseekerBoard.html', '_blank')">Know More</button>
+                        <button class="btn-secondary" onclick="window.open('js.html', '_blank')">Know More</button>
                     </div>
                 </div>
                 <div class="feature-image">
@@ -671,7 +667,7 @@
                     </p>
                     <div class="hero-buttons">
                         <button class="btn-primary">Stay Tuned</button>
-                        <button class="btn-secondary" onclick="window.open('MoonSpy.html', '_blank')">Factsheet</button>
+                        <button class="btn-secondary" onclick="window.open('ms.html', '_blank')">Factsheet</button>
                     </div>
                 </div>
                 <div class="feature-image">
@@ -862,7 +858,7 @@
             <div id="privacy" class="policy-section" style="display:none;"><h1>Privacy Policy</h1><p>We collect data strictly for verification and background screening purposes.</p></div>
             <div id="cookie" class="policy-section" style="display:none;"><h1>Cookie Policy</h1><p>We use cookies to enhance functionality and site security.</p></div>
         </div>
-    <div class="client-container" id="client-logos" style="display:none;">
+    <div class="client-container" id="client-logos">
         <p class="client-heading">Trusted by Industry Partners</p>
         <div class="client-logos-wrapper">
             <div class="client-item"><img src="images/logo1.png" alt="Partner 1"></div>
@@ -881,7 +877,23 @@
         <div class="footer-top">
             <div class="footer-left">
                 <h2 class="footer-logo">SOZYN</h2>
-                <p>SOZYN is a service-based platform providing organizations real-time data to ensure seamless background checks and employee onboarding across India.</p>
+                <p>SOZYN is a service-based platform providing organizations real-time data to ensure seamless background checks and employee onboarding across India.</p><br>
+<h2>Visitors: <span id="count">******</span></h2>
+
+<script>
+async function updateCounter() {
+  try {
+    const res = await fetch("https://api.counterapi.dev/v1/sozyn.co.in/visits/up");
+    const data = await res.json();
+    document.getElementById("count").innerText = data.count;
+  } catch (err) {
+    document.getElementById("count").innerText = "Error";
+    console.error(err);
+  }
+}
+
+updateCounter();
+</script>
             </div>
             <div class="footer-right">
                 <h4>Contact Us:</h4>
